@@ -6,11 +6,20 @@ public class Board {
     public static Scanner in;
     public static HashMap<Integer,Integer> row;
     public static HashMap<Integer, String> piece;
-
+    public static HashMap<Integer,Integer> column;
     public static void startGame(){
         in = new Scanner(System.in);
         row = new HashMap<Integer, Integer>();
         piece = new HashMap<Integer, String>();
+        column = new HashMap<Integer, Integer>();
+        column.put(1,2);
+        column.put(2,3);
+        column.put(3,4);
+        column.put(4,5);
+        column.put(5,6);
+        column.put(6,7);
+        column.put(7,8);
+        column.put(8,9);
         row.put(1,7);
         row.put(2,6);
         row.put(3,5);
@@ -20,19 +29,19 @@ public class Board {
         row.put(7,1);
         row.put(8,0);
         piece.put(0,"empty");
-        piece.put(1,"pn");
-        piece.put(2,"pn");
-        piece.put(3,"kt");
-        piece.put(4,"kt");
-        piece.put(5,"kt");
-        piece.put(6,"kg");
-        piece.put(7,"qn");
-        piece.put(8,"qn");
-        piece.put(9,"qn");
-        piece.put(10,"bp");
-        piece.put(11,"rk");
-        piece.put(12,"rk");
-        gameBoard = new int[][]{{8,-1,12,4,10,8,6,10,4,12},{7,-1,2,2,2,2,2,2,2,2},{6,-1,0,0,0,0,0,0,0,0,},{5,-1,0,0,0,0,0,0,0,0,},{4,-1,0,0,0,0,0,0,0,0,},{3,-1,0,0,0,0,0,0,0,0,},{2,-1,1,1,1,1,1,1,1,1},{1,-1,11,3,9,7,5,9,3,11},{-2,0,0,0,0,0,0,0,0,},{-2,-2,1,2,3,4,5,6,7,8}};
+        piece.put(21,"pn");
+        piece.put(10,"pn");
+        piece.put(11,"kt");
+        piece.put(12,"kt");
+        piece.put(13,"kg");
+        piece.put(14,"kg");
+        piece.put(15,"qn");
+        piece.put(16,"qn");
+        piece.put(17,"qn");
+        piece.put(18,"bp");
+        piece.put(19,"rk");
+        piece.put(20,"rk");
+        gameBoard = new int[][]{{8,-1,20,12,18,16,14,18,12,20},{7,-1,10,10,10,10,10,10,10,10},{6,-1,0,0,0,0,0,0,0,0,},{5,-1,0,0,0,0,0,0,0,0,},{4,-1,0,0,0,0,0,0,0,0,},{3,-1,0,0,0,0,0,0,0,0,},{2,-1,21,21,21,21,21,21,21,2117},{1,-1,19,11,17,15,13,17,11,19},{-2,-2,1,2,3,4,5,6,7,8}};
         System.out.println("make your move");
         System.out.println("White's move");
         printBoard();
@@ -52,12 +61,12 @@ public class Board {
         int y1 = start/10;
         int x2 = end%10;
         int y2 = end/10;
-        gameBoard[row.get(x2)][y2] = gameBoard[row.get(x1)][y1];
-        gameBoard[row.get(x1)][y1] = 0;
+        gameBoard[row.get(x2)][column.get(y2)] = gameBoard[row.get(x1)][column.get(y1)];
+        gameBoard[row.get(x1)][column.get(y1)] = 0;
     }
     public static void printBoard(){
         System.out.println(" ");
-        for (int i = 0; i<gameBoard.length; ++i) {
+        for (int i = 0; i < gameBoard.length; ++i) {
             for(int j = 0; j < gameBoard[i].length; ++j) {
 
                 if (gameBoard[i][j] == 0){
@@ -66,10 +75,11 @@ public class Board {
                     System.out.print("|");
                 } else if(gameBoard[i][j] == -2){
                     System.out.print("  ");
-                } else if (gameBoard[i][j]/10 == 0){
+                }
+                 else if (gameBoard[i][j]/10 == 0){
                     System.out.print(gameBoard[i][j] + " ");
-                } else {
-                    System.out.print(gameBoard[i][j]);
+                }  else {
+                    System.out.print(piece.get(gameBoard[i][j]));
                 }
                 System.out.print(" ");
                 if (j == 9){
